@@ -14,7 +14,7 @@ RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash - && \
     build-essential \
     libpq-dev \
     nodejs \
-    yarn=$YARN_VERSION-1\
+    yarn=$YARN_VERSION-1 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     truncate -s 0 /var/log/*log
@@ -27,21 +27,19 @@ ARG USER_NAME=fp-user
 ARG PASSWORD=password
 RUN useradd -m --uid ${UID} --groups sudo ${USER_NAME} && \
     echo ${USER_NAME}:${PASSWORD} | chpasswd
-USER ${USER_NAME}
 
 # railsプロジェクトの準備
-RUN mkdir /app
-WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+ARG WORKDIR=/app
+RUN mkdir ${WORKDIR}
+WORKDIR ${WORKDIR}
+COPY Gemfile ${WORKDIR}/Gemfile
+COPY Gemfile.lock ${WORKDIR}/Gemfile.lock
 RUN bundle install
-COPY . /app
+COPY . ${WORKDIR}
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
-
-USER root
 
 CMD ["rails","server","-b","0.0.0.0"]
