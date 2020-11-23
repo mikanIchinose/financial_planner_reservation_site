@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @financial_planner.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @financial_planner.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @financial_planner.phone_number %>
+</p>
+
+<%= link_to 'Edit', edit_financial_planner_path(@financial_planner) %> |
+<%= link_to 'Back', financial_planners_path %>
