@@ -3,10 +3,10 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: fp_db
+      MYSQL_DATABASE: root
       MYSQL_USER: dbuser
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: 6%bFFZ8'S@3B^Hg
+      MYSQL_ROOT_PASSWORD: fB3ybY_&9CurGpn
     ports:
       - '3306:3306'
     volumes:
